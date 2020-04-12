@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="header">
+    <h1 class="score">Score: {{ score }}</h1>
+    <div class="tips" [ngStyle]="{ opacity: imageLoading ? 0 : 1 }">
+      <button
+        class="btn"
+        (click)="applyFiftyFiftyTip()"
+        [disabled]="tips.fiftyFifty"
+      >
+        50/50
+      </button>
+      <button class="btn" (click)="applySkipTip()" [disabled]="tips.skip">
+        skip
+      </button>
+    </div>
+  </div>
+  <div
+    class="question"
+    *ngIf="!questionLoading; else loader"
+    [ngStyle]="{ opacity: imageLoading ? 0 : 1 }"
+    [@question]=""
+    (@question.start)="animationStart()"
+    (@question.done)="animationEnd()"
+  >
+    <div class="image">
+      <img [src]="question.imageURL" (load)="onImageLoad()" />
+    </div>
+    <div class="progress-bar">
+      <div
+        class="progress"
+        [ngStyle]="{ width: 100 * (timeToAnswer / 15) + '%' }"
+      ></div>
+    </div>
+    <div class="choises">
+      <button
+        *ngFor="let choise of question.choises"
+        class="btn"
+        [ngClass]="{
+          'btn-correct': givenAnswer && choise === question.answer,
+          'btn-wrong':
+            givenAnswer &&
+            givenAnswer === choise &&
+            givenAnswer !== question.answer
+        }"
+        (click)="checkAnswer(choise)"
+        [disabled]="!choise"
+      >
+        {{ choise }}
+      </button>
+    </div>
+  </div>
+  <ng-template #loader>
+    <h2 *ngIf="!animating" class="loader">Loading...</h2>
+  </ng-template>
+</div>
+
+<app-modal
+  *ngIf="gameOver"
+  [score]="score"
+  [answer]="question.answer"
+  (startNewGame)="startGame()"
+  (goToHomePage)="goHomePage()"
+></app-modal>

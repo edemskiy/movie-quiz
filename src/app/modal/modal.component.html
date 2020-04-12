@@ -1,0 +1,11 @@
+<div class="modal-container">
+  <div class="content" [@modal]="">
+    <h2>Game over</h2>
+    <p>Your score: {{ score }}</p>
+    <p>Correct answer was "{{ answer }}"</p>
+    <div class="buttons">
+      <button class="btn" (click)="startNewGame.emit()">Play again</button>
+      <button class="btn" (click)="goToHomePage.emit()">Menu</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.header {
+  margin-top: 7rem;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.tips {
+  transition: opacity 0.3s;
+  button {
+    position: relative;
+    margin: 0.5rem;
+    width: 100px;
+    &:disabled {
+      &::after,
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 108%;
+        height: 1px;
+        background-color: #ccc;
+      }
+      &::after {
+        transform: translate(-50%, -50%) rotate(22deg);
+      }
+      &::before {
+        transform: translate(-50%, -50%) rotate(-22deg);
+      }
+    }
+  }
+}
+
+.score {
+  font-size: 2.5rem;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 300;
+}
+
+.loader {
+  margin-top: 4rem;
+}
+
+.question {
+  transition: opacity 1s;
+  .image {
+    img {
+      max-width: 100%;
+      max-height: 300px;
+      border: 1px solid #fff;
+    }
+  }
+
+  .progress-bar {
+    height: 10px;
+    background-color: #fff;
+    .progress {
+      height: 10px;
+      background-color: rgb(36, 163, 93);
+    }
+  }
+
+  .choises {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      margin-top: 0.5rem;
+      min-height: 50px;
+      text-transform: none;
+    }
+
+    .btn-correct,
+    .btn-correct:hover {
+      background-color: rgb(36, 163, 93);
+    }
+
+    .btn-wrong,
+    .btn-wrong:hover {
+      background-color: rgb(172, 38, 56);
+    }
+  }
+}
