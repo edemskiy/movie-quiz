@@ -2,11 +2,7 @@
   <div class="header">
     <h1 class="score">Score: {{ score }}</h1>
     <div class="tips" [ngStyle]="{ opacity: imageLoading ? 0 : 1 }">
-      <button
-        class="btn"
-        (click)="applyFiftyFiftyTip()"
-        [disabled]="tips.fiftyFifty"
-      >
+      <button class="btn" (click)="applyFiftyFiftyTip()" [disabled]="tips.fiftyFifty">
         50/50
       </button>
       <button class="btn" (click)="applySkipTip()" [disabled]="tips.skip">
@@ -26,10 +22,7 @@
       <img [src]="question.imageURL" (load)="onImageLoad()" />
     </div>
     <div class="progress-bar">
-      <div
-        class="progress"
-        [ngStyle]="{ width: 100 * (timeToAnswer / 15) + '%' }"
-      ></div>
+      <div class="progress" [ngStyle]="{ width: 100 * (timeToAnswer / 15) + '%' }"></div>
     </div>
     <div class="choises">
       <button
@@ -37,10 +30,7 @@
         class="btn"
         [ngClass]="{
           'btn-correct': givenAnswer && choise === question.answer,
-          'btn-wrong':
-            givenAnswer &&
-            givenAnswer === choise &&
-            givenAnswer !== question.answer
+          'btn-wrong': givenAnswer && givenAnswer === choise && givenAnswer !== question.answer
         }"
         (click)="checkAnswer(choise)"
         [disabled]="!choise"

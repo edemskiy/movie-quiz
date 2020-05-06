@@ -11,12 +11,7 @@ const questionURL = 'https://guess-the-movie-server.herokuapp.com/question';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   animations: [
-    trigger('question', [
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate(200, style({ opacity: 0 })),
-      ]),
-    ]),
+    trigger('question', [transition(':leave', [style({ opacity: 1 }), animate(200, style({ opacity: 0 }))])]),
   ],
 })
 export class GameComponent implements OnInit, OnDestroy {
@@ -100,10 +95,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     let secondChoiceID: number = Math.floor(Math.random() * 4);
-    while (
-      firstChoiseId === secondChoiceID ||
-      this.question.choises[secondChoiceID] === this.question.answer
-    ) {
+    while (firstChoiseId === secondChoiceID || this.question.choises[secondChoiceID] === this.question.answer) {
       secondChoiceID = Math.floor(Math.random() * 4);
     }
 

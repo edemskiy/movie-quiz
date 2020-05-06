@@ -7,10 +7,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('modal', [
-      transition(':enter', [
-        style({ transform: 'scale(0)' }),
-        animate(200, style({ transform: 'scale(1)' })),
-      ]),
+      transition(':enter', [style({ transform: 'scale(0)' }), animate(200, style({ transform: 'scale(1)' }))]),
     ]),
   ],
 })
