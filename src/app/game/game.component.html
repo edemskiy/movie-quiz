@@ -2,10 +2,10 @@
   <div class="header">
     <h1 class="score">Score: {{ score }}</h1>
     <div class="tips" [ngStyle]="{ opacity: imageLoading ? 0 : 1 }">
-      <button class="btn" (click)="applyFiftyFiftyTip()" [disabled]="tips.fiftyFifty">
+      <button class="btn" (click)="applyFiftyFiftyTip()" [disabled]="tips.fiftyFifty.isUsed">
         50/50
       </button>
-      <button class="btn" (click)="applySkipTip()" [disabled]="tips.skip">
+      <button class="btn" (click)="applySkipTip()" [disabled]="tips.skip.isUsed">
         skip
       </button>
     </div>

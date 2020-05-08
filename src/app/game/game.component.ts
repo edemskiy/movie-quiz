@@ -19,7 +19,7 @@ export class GameComponent implements OnInit, OnDestroy {
   score: number;
   timeToAnswer: number;
   givenAnswer: string;
-  tips = { fiftyFifty: false, skip: false };
+  tips = { fiftyFifty: { isUsed: false }, skip: { isUsed: false } };
   previousAnswers: string[];
 
   questionLoading = true;
@@ -42,7 +42,8 @@ export class GameComponent implements OnInit, OnDestroy {
   startGame() {
     this.score = 0;
     this.previousAnswers = [];
-    this.tips = { fiftyFifty: false, skip: false };
+    this.tips.fiftyFifty.isUsed = false;
+    this.tips.skip.isUsed = false;
     this.gameOver = false;
     this.loadNewQuestion();
   }
@@ -50,15 +51,13 @@ export class GameComponent implements OnInit, OnDestroy {
   loadNewQuestion() {
     this.questionLoading = this.imageLoading = true;
     this.givenAnswer = '';
-    this.timeToAnswer = 15;
-
     clearInterval(this.answerTimerId);
 
     this.http.get<Question>(questionURL).subscribe((question) => {
       if (this.question && this.previousAnswers.includes(question.answer)) {
         return this.loadNewQuestion();
       }
-
+      this.timeToAnswer = 15;
       this.question = question;
       this.previousAnswers.push(question.answer);
       this.questionLoading = false;
@@ -85,9 +84,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   applyFiftyFiftyTip() {
-    if (this.tips.fiftyFifty) return;
-
-    this.tips.fiftyFifty = true;
+    if (this.tips.fiftyFifty) {
+      return;
+    }
+    this.tips.fiftyFifty.isUsed = true;
 
     let firstChoiseId: number = Math.floor(Math.random() * 4);
     while (this.question.choises[firstChoiseId] === this.question.answer) {
@@ -106,7 +106,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   applySkipTip() {
     if (this.tips.skip) return;
-    this.tips.skip = true;
+    this.tips.skip.isUsed = true;
     this.loadNewQuestion();
   }
 
