@@ -84,7 +84,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   applyFiftyFiftyTip() {
-    if (this.tips.fiftyFifty) {
+    if (this.tips.fiftyFifty.isUsed) {
       return;
     }
     this.tips.fiftyFifty.isUsed = true;
@@ -105,7 +105,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   applySkipTip() {
-    if (this.tips.skip) return;
+    if (this.tips.skip.isUsed) {
+      return;
+    }
     this.tips.skip.isUsed = true;
     this.loadNewQuestion();
   }
